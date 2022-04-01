@@ -1,0 +1,3 @@
+[submodule "recog"]
+	path = recog
+	url = git@github.com:rapid7/recog.git
