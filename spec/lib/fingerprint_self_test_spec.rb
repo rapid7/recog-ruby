@@ -3,8 +3,8 @@ require 'regexp_parser'
 require 'nokogiri'
 
 describe Recog::DB do
-  let(:schema) { Nokogiri::XML::Schema(open(File.expand_path(File.join(%w(xml fingerprints.xsd))))) }
-  Dir[File.expand_path File.join('xml', '*.xml')].each do |xml_file_name|
+  let(:schema) { Nokogiri::XML::Schema(open(File.expand_path(File.join(%w(recog xml fingerprints.xsd))))) }
+  Dir[File.expand_path(File.join('recog', 'xml', '*.xml'))].each do |xml_file_name|
 
     describe "##{File.basename(xml_file_name)}" do
 
@@ -23,7 +23,7 @@ describe Recog::DB do
 
       it "has valid 'preference' value" do
           # Reserve values below 0.10 and above 0.90 for users
-          # See xml/fingerprints.xsd
+          # See recog/xml/fingerprints.xsd
           expect(db.preference.class).to be ::Float
           expect(db.preference).to be_between(0.10, 0.90)
       end

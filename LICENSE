@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://github.com/rapid7/recog
+Source: https://github.com/rapid7/recog-ruby
 
 Files: *
 Copyright: 2014, Rapid7, Inc.
