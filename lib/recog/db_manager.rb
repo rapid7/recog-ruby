@@ -5,7 +5,7 @@ class DBManager
 
   attr_accessor :path, :databases
 
-  DefaultDatabasePath = File.expand_path( File.join( File.dirname(__FILE__), "..", "..", "xml") )
+  DefaultDatabasePath = File.expand_path(File.join(File.expand_path(__dir__), ["..", "..", "recog", "xml"]))
 
   def initialize(path = DefaultDatabasePath)
     self.path = path

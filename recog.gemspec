@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = [
       'research@rapid7.com'
   ]
-  s.homepage    = "https://www.github.com/rapid7/recog"
+  s.homepage    = "https://www.github.com/rapid7/recog-ruby"
   s.summary     = %q{Network service fingerprint database, classes, and utilities}
   s.description = %q{
     Recog is a framework for identifying products, services, operating systems, and hardware by matching
@@ -20,9 +20,14 @@ Gem::Specification.new do |s|
     information from web server banners, snmp system description fields, and a whole lot more.
   }.gsub(/\s+/, ' ').strip
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.bindir        = 'recog/bin'
+  s.files         = %w(Gemfile Rakefile COPYING LICENSE README.md recog.gemspec .yardopts) +
+                    Dir.glob('lib/**/*.rb') +
+                    Dir.glob('spec/**/*') +
+                    Dir.glob('recog/xml/*') +
+                    Dir.glob('recog/bin/recog_match')
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.executables   = s.files.grep(%r{^recog/bin/}).map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
   # ---- Dependencies ----
@@ -36,7 +41,6 @@ Gem::Specification.new do |s|
     # markdown formatting for yard
     s.add_development_dependency 'redcarpet'
   end
-  s.add_development_dependency 'cucumber'
   s.add_development_dependency 'aruba'
   s.add_development_dependency 'simplecov'
 

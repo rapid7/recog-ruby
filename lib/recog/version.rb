@@ -1,3 +1,3 @@
 module Recog
-  VERSION = '2.3.23'
+  VERSION = '3.0.0.pre'
 end

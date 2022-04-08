@@ -1,41 +1,50 @@
-# Recog: A Recognition Framework
+# Recog-Ruby: A Recognition Framework
 
 [![Gem Version](https://badge.fury.io/rb/recog.svg)](http://badge.fury.io/rb/recog)
-[![Build Status](https://travis-ci.org/rapid7/recog.svg?branch=master)](https://travis-ci.org/rapid7/recog)
+[![CI Workflow](https://github.com/rapid7/recog-ruby/actions/workflows/ci.yml/badge.svg)](https://github.com/rapid7/recog-ruby/actions/workflows/ci.yml)
 
 
-Recog is a framework for identifying products, services, operating systems, and hardware by matching fingerprints against data returned from various network probes. Recog makes it simple to extract useful information from web server banners, snmp system description fields, and a whole lot more.
+Recog is a framework for identifying products, services, operating systems, and hardware by matching fingerprints against data returned from various network probes. Recog makes it simple to extract useful information from web server banners, SNMP system description fields, and a whole lot more.
 
-Recog is open source, please see the [LICENSE](https://raw.githubusercontent.com/rapid7/recog/master/LICENSE) file for more information.
+The Recog-Ruby repository contains the Ruby language implementation of the Recog recognition framework library and the [Recog](https://github.com/rapid7/recog) content, XML fingerprint files, as a git submodule. That makes it easy to develop, test, and use the contained fingerprints.
+
+Recog-Ruby is open source, please see the [LICENSE](LICENSE) file for more information.
 
 ## Table of Contents
 
+1. [Repository split](#repository-split)
 1. [Installation](#installation)
 1. [Maturity](#maturity)
 1. [Fingerprints](#fingerprints)
 1. [Contributing](#contributing)
 
+## Repository split
+
+On March 31, 2022, the Recog content - XML fingerprint files and utilities - were split from the Recog framework library implementation. The original [Recog](https://github.com/rapid7/recog) repository now contains the Recog content and the [Recog-Ruby](https://github.com/rapid7/recog-ruby) repository contains the Ruby language implementation. The Recog content is included in Recog-Ruby as a git submodule and is nested under the `recog` directory. All post-split Recog gem versions equal or greater than 3.0.0 will: 1. contain the XML fingerprint directory under the `recog` directory, and 2. only include the `recog_match` tool since the other tools are focused on fingerprint management.
+
+[^back to top](#recog-ruby-a-recognition-framework)
+
 ## Installation
 
-Recog consists of both XML fingerprint files and an assortment of code, mostly in Ruby, that makes it easy to develop, test, and use the contained fingerprints. In order to use the included ruby code, a recent version of Ruby (2.31+) is required, along with Rubygems and the `bundler` gem. Once these dependencies are in place, use the following commands to grab the latest source code and install any additional dependencies.
+In order to use the included Ruby code, a recent version of Ruby (2.31+) is required, along with Rubygems and the `bundler` gem. Once these dependencies are in place, use the following commands to grab the latest source code and install any additional dependencies.
 
 ```shell
-$ git clone git@github.com:rapid7/recog.git
-$ cd recog
+$ git clone --recurse-submodules git@github.com:rapid7/recog-ruby.git
+$ cd recog-ruby
 $ bundle install
 ```
 
-[^back to top](#recog-a-recognition-framework)
+[^back to top](#recog-ruby-a-recognition-framework)
 
 ## Maturity
 
-Please note that while the XML fingerprints themselves are quite stable and well-tested, the Ruby codebase in Recog is still fairly new and subject to change quickly. Please contact us (research[at]rapid7.com) before leveraging the Recog code within any production projects.
+Please note that while the XML fingerprints themselves are quite stable and well-tested, the Ruby codebase is still fairly new and subject to change quickly. Please contact us (research[at]rapid7.com) before leveraging the Recog code within any production projects.
 
-[^back to top](#recog-a-recognition-framework)
+[^back to top](#recog-ruby-a-recognition-framework)
 
 ## Fingerprints
 
-The fingerprints within Recog are stored in XML files, each of which is designed to match a specific protocol response string or field. For example, the file [ssh_banners.xml](https://github.com/rapid7/recog/blob/master/xml/ssh_banners.xml) can determine the os, vendor, and sometimes hardware product by matching the initial SSH daemon banner string.
+The fingerprints within [Recog](https://github.com/rapid7/recog) are stored in XML files, each of which is designed to match a specific protocol response string or field. For example, the file [ssh_banners.xml](https://github.com/rapid7/recog/blob/master/xml/ssh_banners.xml) can determine the os, vendor, and sometimes hardware product by matching the initial SSH daemon banner string.
 
 A fingerprint file consists of an XML document like the following:
 
@@ -69,12 +78,12 @@ The `param` elements contain a `pos` attribute, which indicates what capture fie
 
 The `example` string can be base64 encoded to permit the use of unprintable characters.  To signal this to Recog an `_encoding` attribute with the value of `base64` is added to the `example` element.  Based64 encoded text that is longer than 80 characters may be wrapped with newlines as shown below to aid in readability.
 
-````xml
+```xml
 <example _encoding="base64">
   dGllczGEAAAAlQQWMS4yLjg0MC4xMTM1NTYuMS40LjgwMAQuZGF0YS5yZW1vdmVkLjCEAAAAK
   AQdZG9tYWluQ29udHJvbGxlckZ1bmN0aW9uYWxpdHkxhAAAAAMEATc=
 </example>
-````
+```
 
 Additionally, examples can be placed in a directory with the same base name as the XML file, in the same directory as the XML file:
 
@@ -93,12 +102,12 @@ They can then be loaded using the `_filename` attribute:
 
 This is useful for long examples.
 
-[^back to top](#recog-a-recognition-framework)
+[^back to top](#recog-ruby-a-recognition-framework)
 
 ## Contributing
 
-The users and maintainers of Recog would greatly appreciate any contributions
+The users and maintainers of Recog-Ruby would greatly appreciate any contributions
 you can make to the project. For guidelines and instructions please see
 [CONTRIBUTING.MD](CONTRIBUTING.md)
 
-[^back to top](#recog-a-recognition-framework)
+[^back to top](#recog-ruby-a-recognition-framework)
