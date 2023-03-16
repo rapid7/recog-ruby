@@ -136,6 +136,13 @@ class Fingerprint
       end
     end
 
+    # After performing interpolation, remove temporary keys from results
+    result.each_pair do |k, _|
+      if k.start_with?('_tmp.')
+        result.delete(k)
+      end
+    end
+
     return result
   end
 
@@ -230,9 +237,9 @@ class Fingerprint
       end
     end
 
-    # alert on untested parameters
+    # alert on untested parameters unless they are temporary
     capture_group_used.each do |param_name, param_used|
-      if !param_used
+      if !param_used && !param_name.start_with?('_tmp.')
         message = "'#{@name}' is missing an example that checks for parameter '#{param_name}' " +
                   "which is derived from a capture group"
         yield :fail, message
