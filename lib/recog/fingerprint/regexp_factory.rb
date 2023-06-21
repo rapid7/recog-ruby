@@ -1,14 +1,13 @@
+# frozen_string_literal: true
 
 module Recog
   class Fingerprint
-
     #
     # @example
     #   r = RegexpFactory.build("^Apache[ -]Coyote/(\d\.\d)$", "REG_ICASE")
     #   r.match("Apache-Coyote/1.1")
     #
     module RegexpFactory
-
       # Currently, only options relating to case insensitivity and
       # multiline/newline are supported.  Because Recog's data is used by tools
       # written in different languages like Ruby and Java, we currently support
@@ -19,13 +18,13 @@ module Recog
       # that use Recog data translate accordingly
       FLAG_MAP = {
         # multiline variations
-        'REG_DOT_NEWLINE'   => Regexp::MULTILINE,
+        'REG_DOT_NEWLINE' => Regexp::MULTILINE,
         'REG_LINE_ANY_CRLF' => Regexp::MULTILINE,
-        'REG_MULTILINE'     => Regexp::MULTILINE,
+        'REG_MULTILINE' => Regexp::MULTILINE,
         # case variations
-        'REG_ICASE'         => Regexp::IGNORECASE,
-        'IGNORECASE'        => Regexp::IGNORECASE
-      }
+        'REG_ICASE' => Regexp::IGNORECASE,
+        'IGNORECASE' => Regexp::IGNORECASE
+      }.freeze
 
       DEFAULT_FLAGS = 0
 
@@ -42,15 +41,13 @@ module Recog
       # @param flags [Array<String>]
       # @return [Fixnum] Flags for creating a regular expression object
       def self.build_options(flags)
-        unsupported_flags = flags.select { |flag| !FLAG_MAP.key?(flag) }
-        unless unsupported_flags.empty?
-          fail "Unsupported regular expression flags found: #{unsupported_flags.join(',')}. Must be one of: #{FLAG_MAP.keys.join(',')}"
-        end
+        unsupported_flags = flags.reject { |flag| FLAG_MAP.key?(flag) }
+        raise "Unsupported regular expression flags found: #{unsupported_flags.join(',')}. Must be one of: #{FLAG_MAP.keys.join(',')}" unless unsupported_flags.empty?
+
         flags.reduce(DEFAULT_FLAGS) do |sum, flag|
-          sum |= (FLAG_MAP[flag] || 0)
+          sum | (FLAG_MAP[flag] || 0)
         end
       end
     end
   end
 end
-
