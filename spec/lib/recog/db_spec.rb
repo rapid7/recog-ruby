@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'recog/db'
 
 describe Recog::DB do
-
-  describe "#fingerprints" do
-    context "with inline example content" do
+  describe '#fingerprints' do
+    context 'with inline example content' do
       let(:xml_file) { File.expand_path File.join('spec', 'data', 'test_fingerprints.xml') }
       subject { Recog::DB.new(xml_file) }
 
@@ -11,50 +12,50 @@ describe Recog::DB do
 
       it { is_expected.to be_a(Enumerable) }
 
-      context "with only a pattern" do
+      context 'with only a pattern' do
         subject(:entry) { described_class.new(xml_file).fingerprints[0] }
 
-        it "has a blank name with no description" do
+        it 'has a blank name with no description' do
           expect(entry.name).to be_empty
         end
 
-        it "has a pattern" do
-          expect(entry.regex.source).to eq(".*\\(iSeries\\).*")
+        it 'has a pattern' do
+          expect(entry.regex.source).to eq('.*\\(iSeries\\).*')
         end
 
-        it "has no params" do
+        it 'has no params' do
           expect(entry.params).to be_empty
         end
 
-        it "has no tests" do
+        it 'has no tests' do
           expect(entry.tests).to be_empty
         end
       end
 
-      context "with params" do
+      context 'with params' do
         subject(:entry) { described_class.new(xml_file).fingerprints[1] }
 
-        it "has a name" do
+        it 'has a name' do
           expect(entry.name).to eq('PalmOS')
         end
 
-        it "has a pattern" do
-          expect(entry.regex.source).to eq(".*\\(PalmOS\\).*")
+        it 'has a pattern' do
+          expect(entry.regex.source).to eq('.*\\(PalmOS\\).*')
         end
 
-        it "has params" do
-          expect(entry.params).to eq({"os.vendor"=>[1, "Palm"], "os.device"=>[2, "General"]})
+        it 'has params' do
+          expect(entry.params).to eq({ 'os.vendor' => [1, 'Palm'], 'os.device' => [2, 'General'] })
         end
 
-        it "has no tests" do
+        it 'has no tests' do
           expect(entry.tests).to be_empty
         end
       end
 
-      context "with pattern flags" do
+      context 'with pattern flags' do
         subject(:entry) { described_class.new(xml_file).fingerprints[2] }
 
-        it "has a name and only uses the first value" do
+        it 'has a name and only uses the first value' do
           expect(entry.name).to eq('HP Designjet printer')
         end
 
@@ -63,57 +64,57 @@ describe Recog::DB do
           expect(entry.regex.options).to eq(Recog::Fingerprint::RegexpFactory::DEFAULT_FLAGS | Regexp::IGNORECASE)
         end
 
-        it "has a pattern" do
+        it 'has a pattern' do
           expect(entry.regex).to be_a(Regexp)
-          expect(entry.regex.source).to eq("(designjet \\S+)")
+          expect(entry.regex.source).to eq('(designjet \\S+)')
         end
 
-        it "has params" do
-          expect(entry.params).to eq({"service.vendor"=>[0, "HP"]})
+        it 'has params' do
+          expect(entry.params).to eq({ 'service.vendor' => [0, 'HP'] })
         end
 
-        it "has no tests" do
+        it 'has no tests' do
           expect(entry.tests).to be_empty
         end
       end
 
-      context "with test" do
+      context 'with test' do
         subject(:entry) { described_class.new(xml_file).fingerprints[3] }
 
-        it "has a name" do
+        it 'has a name' do
           expect(entry.name).to eq('HP JetDirect Printer')
         end
 
-        it "has a pattern" do
-          expect(entry.regex.source).to eq("laserjet (.*)(?: series)?")
+        it 'has a pattern' do
+          expect(entry.regex.source).to eq('laserjet (.*)(?: series)?')
         end
 
-        it "has params" do
-          expect(entry.params).to eq({"service.vendor"=>[0, "HP"]})
+        it 'has params' do
+          expect(entry.params).to eq({ 'service.vendor' => [0, 'HP'] })
         end
 
-        it "has tests" do
-          expect(entry.tests.map(&:content)).to match_array(["HP LaserJet 4100 Series", "HP LaserJet 2200"])
+        it 'has tests' do
+          expect(entry.tests.map(&:content)).to match_array(['HP LaserJet 4100 Series', 'HP LaserJet 2200'])
         end
       end
     end
 
-    context "with external example content" do
+    context 'with external example content' do
       let(:xml_file) { File.expand_path File.join('spec', 'data', 'external_example_fingerprint.xml') }
       subject { Recog::DB.new(xml_file) }
 
       subject(:entry) { described_class.new(xml_file).fingerprints[0] }
 
-      it "has tests" do
-        expect(entry.tests.map(&:content)).to match_array(["HP LaserJet 4100 Series", "HP LaserJet 2200"])
+      it 'has tests' do
+        expect(entry.tests.map(&:content)).to match_array(['HP LaserJet 4100 Series', 'HP LaserJet 2200'])
       end
     end
 
-    context "with external example content illegal path" do
+    context 'with external example content illegal path' do
       let(:xml_file) { File.expand_path File.join('spec', 'data', 'external_example_illegal_path_fingerprint.xml') }
       subject { Recog::DB.new(xml_file) }
 
-      it "raises an illegal file path error" do
+      it 'raises an illegal file path error' do
         expect { subject }.to raise_error(/an example specifies an illegal file path '.+'/)
       end
     end

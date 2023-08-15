@@ -1,0 +1,55 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.5.0
+  SuggestExtensions: false
+  NewCops: disable
+  Exclude:
+    - '**/vendor/**/*'
+    - 'recog/**/*'
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/NumericPredicate:
+  Description: 'This adds no efficiency nor space saving'
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Description: 'This adds no efficiency nor space saving'
+  Enabled: false
+
+Style/StderrPuts:
+  Description: 'Replaces $stderr.puts with warn() which can suppress messages'
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+  Description: 'This is often a red-herring'
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+  Description: 'This is often a red-herring'
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+  Description: 'This is often a red-herring'
+
+Metrics/MethodLength:
+  Description: 'The style guide suggests 10 lines, bumping it up to the current maximum'
+  Max: 45
+
+Metrics/BlockLength:
+  Description: 'The style guide suggests 10 lines, bumping it up to the current maximum'
+  Max: 240
+
+Layout/CommentIndentation:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
