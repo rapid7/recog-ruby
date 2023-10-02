@@ -1,0 +1,15 @@
+---
+info:
+  title: Recog Ruby
+  description: 'Recog-Ruby: Pattern Recognition using Rapid7 Recog'
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/recog-ruby
+  x-cortex-tag: recog-ruby
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: metasploit
+openapi: 3.0.1
+servers:
+- url: "/"
