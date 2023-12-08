@@ -19,7 +19,7 @@ pipeline {
         }
 
         stage('test') {
-            when { expression { runTests } }
+            //when { expression { runTests } }
 
             steps {
                 sh 'rake tests'
