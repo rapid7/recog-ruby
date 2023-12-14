@@ -30,6 +30,8 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.executables   = s.files.grep(%r{^recog/bin/}).map { |f| File.basename(f) }
   s.require_paths = ['lib']
+  s.cert_chain  = [ENV["GEM_PUBLIC_KEY"]]
+  s.signing_key = File.expand_path(ENV["GEM_PRIVATE_KEY"]) if $0 =~ /gem\z/
 
   # ---- Dependencies ----
 
