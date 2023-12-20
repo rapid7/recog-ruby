@@ -21,3 +21,6 @@ official-cpe-dictionary*.xml
 
 # CPE Remap Errors
 errors.txt
+
+#CI specific
+jenkins/
