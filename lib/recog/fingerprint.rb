@@ -222,7 +222,7 @@ module Recog
 
       # match up the fingerprint parameters with test attributes
       tests.each do |test|
-        test.attributes.each do |k, _v|
+        test.attributes.each_key do |k|
           capture_group_used[k] = true if capture_group_used.key?(k)
         end
       end
