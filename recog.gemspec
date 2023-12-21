@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   gem_public_cert = ENV['GEM_PUBLIC_CERT']
   gem_private_key = ENV['GEM_PRIVATE_KEY']
 
-  if !gem_public_cert.nil? && !gem_private_key.nil?
+  if gem_public_cert && gem_private_key
     s.cert_chain  = [gem_public_cert]
     s.signing_key = File.expand_path(gem_private_key)
   end
