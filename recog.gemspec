@@ -31,6 +31,14 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^recog/bin/}).map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
+  gem_public_cert = ENV['GEM_PUBLIC_CERT']
+  gem_private_key = ENV['GEM_PRIVATE_KEY']
+
+  if gem_public_cert && gem_private_key
+    s.cert_chain  = [gem_public_cert]
+    s.signing_key = File.expand_path(gem_private_key)
+  end
+
   # ---- Dependencies ----
 
   s.add_development_dependency 'rspec'
