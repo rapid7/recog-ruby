@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gemspec name: 'recog'
 
+gem 'ffi', '1.16.3'
 gem 'nokogiri'
 
 group :test do
