@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Recog
-  VERSION = '3.1.25'
+  VERSION = '3.1.26'
 end
