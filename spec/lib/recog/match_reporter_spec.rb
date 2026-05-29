@@ -17,7 +17,7 @@ describe Recog::MatchReporter do
 
   describe '#report' do
     it 'prints matches' do
-      expect(formatter).to receive(:success_message).with('MATCH: {"data"=>"a match"}')
+      expect(formatter).to receive(:success_message).with(a_string_matching(/\AMATCH: \{"data"\s*=>\s*"a match"\}\z/))
       run_report
     end
 
