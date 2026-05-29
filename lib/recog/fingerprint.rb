@@ -104,7 +104,7 @@ module Recog
 
       # Use the protocol specified in the XML database if there isn't one
       # provided as part of this fingerprint.
-      result['service.protocol'] = @protocol if @protocol && !(result['service.protocol'])
+      result['service.protocol'] = @protocol if @protocol && !result['service.protocol']
 
       result['fingerprint_db'] = @match_key if @match_key
 
@@ -123,7 +123,7 @@ module Recog
             # standard of '-' for the version, otherwise raise and exception as
             # this code currently does not handle interpolation of undefined
             # values in other cases.
-            raise "Invalid use of nil interpolated non-version value #{replacement} in non-cpe23 fingerprint param #{replacement_k}" unless replacement_k =~ (/\.cpe23$/) && replacement =~ (/\.version$/)
+            raise "Invalid use of nil interpolated non-version value #{replacement} in non-cpe23 fingerprint param #{replacement_k}" unless replacement_k =~ /\.cpe23$/ && replacement =~ /\.version$/
 
             result[replacement_k] = result[replacement_k].gsub(/\{#{replacement}\}/, '-')
 
