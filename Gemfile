@@ -6,6 +6,7 @@ gemspec name: 'recog'
 
 gem 'ffi', '1.16.3'
 gem 'nokogiri'
+gem 'prism', '< 1.0'
 
 group :test do
   gem 'rake'
