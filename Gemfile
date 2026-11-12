@@ -6,7 +6,6 @@ gemspec name: 'recog'
 
 gem 'ffi', '1.16.3'
 gem 'nokogiri'
-gem 'prism', '< 1.0'
 
 group :test do
   gem 'rake'
@@ -14,5 +13,5 @@ group :test do
 end
 
 group :rubocop do
-  gem 'rubocop'
+  gem 'rubocop' if RUBY_VERSION >= '3.0'
 end
