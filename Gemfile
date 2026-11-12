@@ -13,5 +13,5 @@ group :test do
 end
 
 group :rubocop do
-  gem 'rubocop'
+  gem 'rubocop' if RUBY_VERSION >= '3.0'
 end
